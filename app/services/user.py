@@ -1,5 +1,6 @@
 from app.schemas.user import FullUserProfile, User
 from typing import Optional
+from app.exceptions import UserNoTFound
 
 profile_infos = {
     0:
@@ -67,7 +68,8 @@ class UserService:
         # username = 'test user'
         # short_description = 'my bio description'
         # liked_posts = []
-
+        if user_id not in profile_infos:
+            raise UserNoTFound(user_id=user_id)
         profile_info = profile_infos[user_id]
         user_content = user_contents[user_id]
         user = User(**user_content)
@@ -83,6 +85,7 @@ class UserService:
     async def delete_user(user_id: int) -> None:
         global profile_infos
         global user_contents
-
+        if user_id not in profile_infos:
+            raise UserNoTFound(user_id=user_id)
         del profile_infos[user_id]
         del user_contents[user_id]
