@@ -10,8 +10,6 @@ def create_application() -> FastAPI:
     app.include_router(user_router)
     add_exception_handler(app)
 
-
-
     return app
 
 

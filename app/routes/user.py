@@ -1,7 +1,10 @@
-from fastapi import APIRouter, HTTPException
+import time
+
+from fastapi import APIRouter, HTTPException, Response, Depends
 from app.schemas.user import FullUserProfile, MultipleUsersResponse, CreateUserResponse
 from app.services.user import UserService
-import logging
+import logging, time
+from app.dependencies import rate_limit
 
 logger = logging.getLogger(__name__)
 # logging.basicConfig(
@@ -18,7 +21,7 @@ logger.addHandler(console)
 
 
 def create_user_router() -> APIRouter:
-    user_router = APIRouter(prefix='/user', tags=['user'])
+    user_router = APIRouter(prefix='/user', tags=['user'], dependencies=[Depends(rate_limit)])
     user_service = UserService()
 
     @user_router.get("/all", response_model=MultipleUsersResponse)
@@ -34,9 +37,10 @@ def create_user_router() -> APIRouter:
 
     @user_router.get('/{user_id}', response_model=FullUserProfile)
     async def get_user_by_id(user_id: int):
-
         # try:
+        # rate_limit(response)
         full_user_profile = await user_service.get_user_info(user_id)
+        # response.headers['test-additional-header-value'] = "Something new in headers"
         # except KeyError:
         #     logger.error(f"Non-existed user {user_id} was requested")
         #     raise HTTPException(status_code=404, detail="User does not exist")
