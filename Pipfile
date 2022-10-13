@@ -7,10 +7,11 @@ name = "pypi"
 unicorn = "*"
 fastapi = "*"
 uvicorn = "*"
-mypy = "*"
 pydantic = "*"
 
 [dev-packages]
+mypy = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.10"
