@@ -20,9 +20,9 @@ console = logging.StreamHandler()
 logger.addHandler(console)
 
 
-def create_user_router() -> APIRouter:
+def create_user_router(profile_infos: dict, user_contents: dict) -> APIRouter:
     user_router = APIRouter(prefix='/user', tags=['user'], dependencies=[Depends(rate_limit)])
-    user_service = UserService()
+    user_service = UserService(profile_infos, user_contents)
 
     @user_router.get("/all", response_model=MultipleUsersResponse)
     async def get_all_users_paginated(start: int = 0, limit: int = 2):
@@ -68,3 +68,5 @@ def create_user_router() -> APIRouter:
         return created_user
 
     return user_router
+
+
