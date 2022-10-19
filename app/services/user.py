@@ -1,5 +1,5 @@
 from app.schemas.user import FullUserProfile, User
-from typing import Optional
+from typing import Optional, Tuple, List
 from app.exceptions import UserNoTFound
 
 
@@ -10,7 +10,7 @@ class UserService:
         self.profile_infos = profile_infos
         self.user_contents = user_contents
 
-    async def get_all_users_with_pagination(self, start, limit) -> (list[FullUserProfile], int):
+    async def get_all_users_with_pagination(self, start, limit) -> Tuple[List[FullUserProfile], int]:
         list_of_users = []
         keys = list(self.profile_infos.keys())
         total = len(keys)
