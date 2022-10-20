@@ -1,4 +1,4 @@
-FROM python:3.10-alpine
+FROM python:3.9
 
 RUN pip install --upgrade pip
 RUN pip install pipenv
@@ -9,6 +9,6 @@ COPY app ./app
 
 RUN pipenv install --system
 
-CMD ["uvicorn", "main:app"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
 
 
