@@ -16,7 +16,7 @@ ENV PYROOT /pyroot
 ENV PYTHONUSERBASE ${PYROOT}
 ENV PATH=${PATH}:${PYROOT}/bin
 
-RUN groupadd myapp && useradd -G myapp user -u 1234
+RUN groupadd --system myapp && useradd --system -G myapp user -u 1234
 COPY --chown=user:myapp --from=base ${PYROOT}/ ${PYROOT}/
 
 
