@@ -4,8 +4,6 @@ from app.routes.user import create_user_router
 from app.exception_handler import add_exception_handler
 
 
-
-
 def create_application() -> FastAPI:
     profile_infos, user_contents = create_profile_infos()
     user_router = create_user_router(profile_infos, user_contents)
@@ -14,6 +12,7 @@ def create_application() -> FastAPI:
     add_exception_handler(app)
 
     return app
+
 
 def create_profile_infos():
     profile_infos = {
