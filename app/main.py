@@ -32,7 +32,4 @@ def create_profile_infos():
     return profile_infos, user_contents
 
 
-from models import recreate_postgres_tables
-
-recreate_postgres_tables()
 app = create_application()
